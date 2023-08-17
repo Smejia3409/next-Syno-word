@@ -1,0 +1,61 @@
+* {
+  background-color: #202020;
+}
+
+.App {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-self: center;
+}
+
+.start-container {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+.start-title {
+  font-size: 50px;
+  animation-timing-function: linear;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.start-btn {
+  animation-name: bounce-1;
+  animation-timing-function: linear;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes bounce-1 {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce-2 {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.game-container {
+  text-align: center;
+  justify-content: center;
+  align-self: center;
+}
