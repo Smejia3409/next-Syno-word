@@ -12,10 +12,9 @@ export default async function handler(
   switch (method) {
     case `GET`:
       try {
-        const word = await Word.find().limit(20);
+        const word = await Word.find();
         if (word) {
           res.status(200).json(word);
-          console.log(word);
         } else {
           res.status(200).json("Error");
         }

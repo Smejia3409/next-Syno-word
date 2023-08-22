@@ -19,16 +19,15 @@ const Game = () => {
   useEffect(() => {
     const words = async () => {
       try {
-        const words = await getWords();
-        console.log(words);
+        let words: any = await axios.get("/api/word");
+        setWordList(words.data);
       } catch (error) {
         console.log(error);
       }
     };
 
     words();
-  });
-
+  }, []);
   return (
     <div className="game-container border border-light">
       <Row className="game-options"></Row>

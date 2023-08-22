@@ -26,11 +26,9 @@ import axios from "axios";
 
 export const getWords = async () => {
   try {
-    let words = await axios.get("http://localhost:5000/word/word");
+    let words = await axios.get("/api/word");
 
-    console.log(words);
-
-    return words;
+    return words.data;
   } catch (error) {
     console.log(error);
     return error;

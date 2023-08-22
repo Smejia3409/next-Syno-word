@@ -1,6 +1,8 @@
 import Game from "@/components/Game";
 import { GameContext } from "@/components/GameContext";
+import { getWords } from "@/ts_files/fetching";
 import { IGame } from "@/ts_files/interfaces";
+import { GetStaticProps } from "next/types";
 import { useState, useContext } from "react";
 import { Row, Button } from "react-bootstrap";
 
@@ -54,3 +56,9 @@ const Start = () => {
     </>
   );
 };
+
+// export const getStaticProps = async () => {
+//   const res = await getWords();
+
+//   return { props: { res } };
+// };
