@@ -7,7 +7,11 @@ import { useState, useContext } from "react";
 import { Row, Button } from "react-bootstrap";
 
 export default function Home() {
-  const [gameValue, setGameValue] = useState<IGame>({ words: [], tries: 3 });
+  const [gameValue, setGameValue] = useState<IGame>({
+    words: [],
+    tries: 3,
+    score: 0,
+  });
   const [words, setWords] = useState<string[]>([""]);
 
   // useEffect(() => {
