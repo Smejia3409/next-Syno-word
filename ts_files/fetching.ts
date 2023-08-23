@@ -26,7 +26,7 @@ import axios from "axios";
 
 export const getWords = async () => {
   try {
-    let words = await axios.get("/api/word");
+    let words: any = await axios.get("/api/word");
 
     return words.data;
   } catch (error) {

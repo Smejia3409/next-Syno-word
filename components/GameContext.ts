@@ -4,4 +4,5 @@ import { IGame } from "@/ts_files/interfaces";
 export const GameContext = createContext<IGame>({
   words: [],
   tries: 3,
+  score: 0,
 });

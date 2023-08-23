@@ -4,48 +4,84 @@ import { GameContext } from "./GameContext";
 import GameOver from "./GameOver";
 import axios from "axios";
 import { getWords } from "../ts_files/fetching";
+import { Loading } from "./Loading";
+import { IWord } from "@/ts_files/interfaces";
+import GameWidgets from "./GameWidgets";
 // import { getSynonym } from "./fetching";
 
 const Game = () => {
   const [wordInput, setWordInput] = useState<string>("");
-  const [wordIndex, setWordIndex] = useState<number>(0);
   const [gameOver, setGameOver] = useState<boolean>(false);
-  const [wordList, setWordList] = useState<Object[]>([]);
+  const [wordList, setWordList] = useState<IWord[]>([]);
+  const [wordIndex, setWordIndex] = useState<number>(getRandomInt);
 
   const gameContext = useContext(GameContext);
 
-  const submitRes = () => {};
+  const submitRes = () => {
+    if (
+      wordList[wordIndex].word === wordInput ||
+      wordList[wordIndex].synonym.includes(wordInput)
+    ) {
+      gameContext.score = gameContext.score + 1;
+    } else {
+      gameContext.tries = gameContext.tries - 1;
+    }
+    setWordInput("");
+    setWordIndex(getRandomInt);
+  };
+
+  function getRandomInt() {
+    return (
+      Math.floor(Math.random() * wordList.length) ||
+      Math.floor(Math.random() * 30)
+    );
+  }
 
   useEffect(() => {
     const words = async () => {
       try {
-        let words: any = await axios.get("/api/word");
-        setWordList(words.data);
+        let words: IWord[] = (await axios.get("/api/word")).data;
+        setWordList(words);
       } catch (error) {
         console.log(error);
       }
     };
 
     words();
+
+    gameContext.words = wordList;
   }, []);
+
+  console.log(wordList[wordIndex]);
+
   return (
-    <div className="game-container border border-light">
-      <Row className="game-options"></Row>
-      <p className="text-light">{gameContext.words[wordIndex]}</p>
-      <br />
+    <>
+      <div className="game-container border border-light">
+        <GameWidgets score={gameContext.score} tries={gameContext.tries} />
 
-      <Form>
-        <Form.Control
-          value={wordInput}
-          onChange={(word) => {
-            setWordInput(word.target.value);
-          }}
-        />
-        <Button onClick={submitRes}>Submit</Button>
-      </Form>
+        {wordList.length > 0 ? (
+          <div className="">
+            <Row className="game-options"></Row>
+            <p className="text-light">{wordList[wordIndex]["definition"]}</p>
+            <br />
 
-      {gameOver && <GameOver showProp={gameOver} />}
-    </div>
+            <Form>
+              <Form.Control
+                value={wordInput}
+                onChange={(word) => {
+                  setWordInput(word.target.value);
+                }}
+              />
+              <Button onClick={submitRes}>Submit</Button>
+            </Form>
+
+            {gameOver && <GameOver showProp={gameOver} />}
+          </div>
+        ) : (
+          <Loading />
+        )}
+      </div>
+    </>
   );
 };
 
