@@ -17,7 +17,8 @@ const Game = () => {
 
   const gameContext = useContext(GameContext);
 
-  const submitRes = () => {
+  const submitRes = (e: React.SyntheticEvent) => {
+    e.preventDefault();
     if (
       wordList[wordIndex].word === wordInput ||
       wordList[wordIndex].synonym.includes(wordInput)
@@ -56,7 +57,7 @@ const Game = () => {
 
   return (
     <>
-      <div className="game-container border border-light">
+      <div className="game-container ">
         <GameWidgets score={gameContext.score} tries={gameContext.tries} />
 
         {wordList.length > 0 ? (
@@ -65,7 +66,7 @@ const Game = () => {
             <p className="text-light">{wordList[wordIndex]["definition"]}</p>
             <br />
 
-            <Form>
+            <Form onSubmit={submitRes}>
               <Form.Control
                 value={wordInput}
                 onChange={(word) => {
