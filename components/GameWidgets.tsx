@@ -1,8 +1,16 @@
-import React, { useContext, useEffect } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  Button,
+  Col,
+  Modal,
+  OverlayTrigger,
+  Popover,
+  Row,
+} from "react-bootstrap";
 import { GameContext } from "./GameContext";
+import PopTrigger from "./PopTrigger";
 
-const GameWidgets = (props: { score: number; tries: number }) => {
+const GameWidgets = (props: { score: number; tries: number; word: string }) => {
   const gameContext = useContext(GameContext);
 
   useEffect(() => {
@@ -20,17 +28,44 @@ const GameWidgets = (props: { score: number; tries: number }) => {
         <p className="text-danger">Tries:{props.tries}</p>
       </Col>
       <Col xs={2} sm={2} md={2} lg={2}>
-        <Button variant="success">Hint</Button>
+        <PopTrigger word={props.word} />
       </Col>
     </div>
   );
 };
 
-const letterHint = (props: { word: string }) => {
+const LetterHint = (props: { word: string }) => {
   const wordLen = props.word.length;
   const first = props.word[0];
 
-  return <></>;
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <Button variant="success" onClick={handleShow}>
+        Hint
+      </Button>
+
+      <Modal show={show} onHide={handleClose} size="sm">
+        <Modal.Header closeButton>
+          <Modal.Title className="text-light">Hint</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p className="text-light">
+            First Letter: <span className="text-danger">{first}</span>
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="Danger" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
 };
 
 export default GameWidgets;

@@ -11,6 +11,7 @@ const GameOver = (props: { showProp: boolean }) => {
 
   const reset = () => {
     gameContext.tries = 3;
+    gameContext.score = 0;
   };
 
   return (

@@ -7,6 +7,7 @@ import { getWords } from "../ts_files/fetching";
 import { Loading } from "./Loading";
 import { IWord } from "@/ts_files/interfaces";
 import GameWidgets from "./GameWidgets";
+import PopTrigger from "./PopTrigger";
 // import { getSynonym } from "./fetching";
 
 const Game = () => {
@@ -51,17 +52,20 @@ const Game = () => {
     words();
 
     gameContext.words = wordList;
-  }, []);
+  }, [gameContext]);
 
   console.log(wordList[wordIndex]);
 
   return (
     <>
       <div className="game-container ">
-        <GameWidgets score={gameContext.score} tries={gameContext.tries} />
-
         {wordList.length > 0 ? (
           <div className="">
+            <GameWidgets
+              score={gameContext.score}
+              tries={gameContext.tries}
+              word={wordList[wordIndex]["word"]}
+            />
             <Row className="game-options"></Row>
             <p className="text-light">{wordList[wordIndex]["definition"]}</p>
             <br />
