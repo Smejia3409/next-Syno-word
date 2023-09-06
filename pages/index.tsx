@@ -11,6 +11,8 @@ export default function Home() {
     words: [],
     tries: 3,
     score: 0,
+    hints: 3,
+    hintStatus: false,
   });
   const [words, setWords] = useState<string[]>([""]);
 

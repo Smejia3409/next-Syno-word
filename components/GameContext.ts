@@ -5,4 +5,6 @@ export const GameContext = createContext<IGame>({
   words: [],
   tries: 3,
   score: 0,
+  hints: 3,
+  hintStatus: false,
 });

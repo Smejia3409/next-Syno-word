@@ -2,6 +2,8 @@ export interface IGame {
   words: object[];
   tries: number;
   score: number;
+  hints: number;
+  hintStatus: boolean;
 }
 
 export interface IWord {

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import {
   Popover,
   OverlayTrigger,
@@ -6,12 +6,39 @@ import {
   Overlay,
   Tooltip,
 } from "react-bootstrap";
+import { GameContext } from "./GameContext";
 
-const PopTrigger = (props: { word: string }) => {
+const PopTrigger = (props: { word: string; hintStatus: boolean }) => {
   const [btnColor, setBtnColor] = useState<string>("btn-success");
-  const target = useRef(null);
+  const [disable, setDisable] = useState<boolean>(false);
   const wordLen = props.word.length;
   const first = props.word[0];
+
+  const gameContext = useContext(GameContext);
+
+  const clickOverLay = () => {
+    if (gameContext.hints === 0) {
+      gameContext.hintStatus = true;
+    } else {
+      if (btnColor == "btn-success") {
+        setBtnColor("btn-danger");
+        setDisable(true);
+        gameContext.hints = gameContext.hints - 1;
+      } else {
+        setBtnColor("btn-success");
+        setDisable(false);
+
+        gameContext.hintStatus = true;
+      }
+
+      setTimeout(() => {
+        gameContext.hints = gameContext.hints - 1;
+        setBtnColor("btn-success");
+        gameContext.hintStatus = true;
+        setDisable(false);
+      }, 5000);
+    }
+  };
 
   return (
     <>
@@ -19,6 +46,7 @@ const PopTrigger = (props: { word: string }) => {
         trigger="click"
         key="right"
         placement="right"
+        show={disable}
         overlay={
           <Popover>
             <Popover.Header as="h3">{`Hint`}</Popover.Header>
@@ -33,13 +61,8 @@ const PopTrigger = (props: { word: string }) => {
       >
         <Button
           className={btnColor}
-          onClick={() => {
-            if (btnColor == "btn-success") {
-              setBtnColor("btn-danger");
-            } else {
-              setBtnColor("btn-success");
-            }
-          }}
+          disabled={gameContext.hintStatus}
+          onClick={clickOverLay}
         >
           Hint
         </Button>

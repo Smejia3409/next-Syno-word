@@ -10,7 +10,12 @@ import {
 import { GameContext } from "./GameContext";
 import PopTrigger from "./PopTrigger";
 
-const GameWidgets = (props: { score: number; tries: number; word: string }) => {
+const GameWidgets = (props: {
+  score: number;
+  tries: number;
+  word: string;
+  hint: boolean;
+}) => {
   const gameContext = useContext(GameContext);
 
   useEffect(() => {
@@ -28,7 +33,7 @@ const GameWidgets = (props: { score: number; tries: number; word: string }) => {
         <p className="text-danger">Tries:{props.tries}</p>
       </Col>
       <Col xs={2} sm={2} md={2} lg={2}>
-        <PopTrigger word={props.word} />
+        <PopTrigger word={props.word} hintStatus={props.hint} />
       </Col>
     </div>
   );
