@@ -15,18 +15,21 @@ const Game = () => {
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [wordList, setWordList] = useState<IWord[]>([]);
   const [wordIndex, setWordIndex] = useState<number>(getRandomInt);
+  const [hintSatus, setHintStatus] = useState<boolean>(false);
 
   const gameContext = useContext(GameContext);
 
   const submitRes = (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (
-      wordList[wordIndex].word === wordInput ||
+      wordList[wordIndex].word === wordInput.toLowerCase() ||
       wordList[wordIndex].synonym.includes(wordInput)
     ) {
       gameContext.score = gameContext.score + 1;
+      gameContext.hintStatus = false;
     } else {
       gameContext.tries = gameContext.tries - 1;
+      gameContext.hintStatus = false;
     }
     setWordInput("");
     setWordIndex(getRandomInt);
@@ -65,6 +68,7 @@ const Game = () => {
               score={gameContext.score}
               tries={gameContext.tries}
               word={wordList[wordIndex]["word"]}
+              hint={hintSatus}
             />
             <Row className="game-options"></Row>
             <p className="text-light">{wordList[wordIndex]["definition"]}</p>
