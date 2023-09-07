@@ -57,8 +57,6 @@ const Game = () => {
     gameContext.words = wordList;
   }, [gameContext]);
 
-  console.log(wordList[wordIndex]);
-
   return (
     <>
       <div className="game-container ">
