@@ -1,3 +1,23 @@
+## SynoWord - (Word Game)
+
+Test your vocabulary with SynoWord
+1.Get A definition
+2.Guess the word
+
+
+### Home Screen
+
+![Alt text](media/home.png)
+
+
+#### Main page
+
+![Alt text](media/main.png)
+
+
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
